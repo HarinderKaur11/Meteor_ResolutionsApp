@@ -8,7 +8,15 @@ Template.body.helpers({
 		resolutions:function(){
 			return Resolutions.find();
 		}
+
 	});
+
+Template.resolution.helpers({
+	selectedResolution: function(){
+			var selectedResolution=Session.get('selectedResolution');
+			return Resolutions.findOne({_id:selectedResolution});
+		}
+});
 
 Template.body.events({
 	'submit .new-resolution':function(event){
@@ -22,5 +30,14 @@ Template.body.events({
 		event.target.title.value="";
 		return false;
 
+	}
+});
+
+Template.resolution.events({
+	'click .delete': function(){
+		var id=this._id;
+		Session.set('selectedResolution',id);
+		var selectedResolution=Session.get('selectedResolution');
+		Resolutions.remove({_id:selectedResolution});
 	}
 });
