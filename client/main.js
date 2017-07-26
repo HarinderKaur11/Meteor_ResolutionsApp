@@ -4,6 +4,8 @@ import './main.html';
 
 Resolutions= new Mongo.Collection('resolutions');
 
+Meteor.subscribe("resolutions");
+
 Template.body.helpers({
 		resolutions:function(){
 			if(Session.get('hideFinished')){
@@ -24,7 +26,11 @@ Template.resolution.helpers({
 	selectedResolution: function(){
 			var selectedResolution=Session.get('selectedResolution');
 			return Resolutions.findOne({_id:selectedResolution});
-		}
+		},
+
+	isOwner: function(){
+		return this.owner===Meteor.userId();
+	}
 });
 
 Template.body.events({
@@ -53,6 +59,10 @@ Template.resolution.events({
 
 	'click .toggle-checked': function(){
 		Meteor.call("updateResolution",this._id,!this.checked);
+	},
+
+	'click .toggle-private': function(){
+		Meteor.call("setPrivate",this._id,!this.private);
 	}
 });
 

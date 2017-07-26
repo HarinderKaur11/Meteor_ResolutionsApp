@@ -8,7 +8,8 @@ Meteor.startup(() => {
 	addResolution: function(title){
 		Resolutions.insert({
 			title: title,
-			createdAt: new Date()
+			createdAt: new Date(),
+			owner: Meteor.userId()
 		});
 	},
 
@@ -18,6 +19,20 @@ Meteor.startup(() => {
 
 	deleteResolution:function(id){
 		Resolutions.remove(id);
+	},
+
+	setPrivate: function(id,private){
+		var res=Resolutions.findOne(id);
+		if(res.owner!==Meteor.userId()){
+			throw new Meteor.Error("not-authorized");
+		}
+
+		Resolutions.update(id,{$set:{ private: private} })
 	}
 });
+});
+
+Meteor.publish("resolutions", function(){
+	return Resolutions.find();
+
 });
