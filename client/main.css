@@ -1,7 +1,9 @@
-/* CSS declarations go here */
+/* CSS declarations go here */ 
+
 html {
   box-sizing: border-box;
 }
+
  
 *, *:before, *:after {
   box-sizing: inherit;
@@ -11,7 +13,7 @@ html {
 body {
   font-family: sans-serif;
   font-size: 16px;
-  background: #333;
+  background-color: red;
 }
  
 .container {
