@@ -58,3 +58,7 @@ Template.resolution.events({
 		Resolutions.update(this._id,{$set:{ checked: !this.checked} })
 	}
 });
+
+Accounts.ui.config({
+	passwordSignupFields:"USERNAME_ONLY"
+});
