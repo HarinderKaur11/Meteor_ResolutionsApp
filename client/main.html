@@ -21,13 +21,13 @@
       {{/if}}
       </header>
 
-{{#if currentUser}}
+
       <ul> 
            {{#each resolutions}}
             {{> resolution}}
            {{/each}}
        </ul>
- {{/if}}
+ 
        {{> loginButtons}}
 
  </div>
@@ -38,6 +38,7 @@
 <template name="resolution">
   <li class="{{#if checked}}checked{{/if}}">
     {{#if isOwner}}
+    <input type="checkbox" checked={{checked}} class="toggle-checked">
       <button class="toggle-private">
         {{#if private}}
              Private
@@ -46,10 +47,10 @@
         {{/if}}
       </button>
     {{/if}}
-      <input type="checkbox" checked={{checked}} class="toggle-checked">
       <span class="text">{{title}}</span>
-      
+       {{#if isOwner}}
       <button class="delete">Remove</button>
+      {{/if}}
   </li>
 </template>
 
